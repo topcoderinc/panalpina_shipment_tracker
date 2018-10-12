@@ -1,0 +1,201 @@
+@import 'variables';
+
+.tracking-map {
+  height: 520px;
+  overflow: hidden;
+  position: relative;
+
+  app-google-map {
+    width: 100%;
+  }
+
+  // filters panel position on map
+  app-results-filter {
+    display: block;
+    height: 460px;
+    width: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width .3s ease;
+
+    position: absolute;
+    right: 0;
+    z-index: 1;
+
+    &.active {
+      width: 214px;
+    }
+  }
+
+  // move map controls when filters panel is opened
+  app-results-filter + app-google-map /deep/ {
+    .map-controls {
+      transition: right .3s ease;
+    }
+  }
+
+  app-results-filter.active + app-google-map /deep/ {
+    .map-controls {
+      right: 236px;
+    }
+  }
+}
+
+// reference input
+.search-bar {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding-left: 210px;
+
+  label {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  input {
+    width: 472px;
+    margin-right: 10px;
+  }
+  .ic {
+    margin: 0 15px 0 5px;
+    vertical-align: middle;
+  }
+}
+
+// results list style
+.main-section {
+  color: $accent;
+
+  header {
+    padding: 17px 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $border-color-dark;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .right-actions {
+    margin-left: auto;
+  }
+
+  .content {
+    padding: 20px 10px 35px;
+  }
+}
+
+
+
+// remove on integration
+// ads style
+
+// top sds
+.top-card-wrap {
+  display: flex;
+  .info {
+    padding-top: 75px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+  }
+  .text {
+    margin-right: 77px;
+    width: 387px;
+    color: $accent;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 24px;
+    text-transform: uppercase;
+    small {
+      display: block;
+      font-size: 13px;
+    }
+  }
+  img {
+    flex-shrink: 0;
+  }
+}
+
+// bottom ads
+.cards-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0 40px;
+  background: $box-color;
+}
+.card {
+  position: relative;
+  width: 450px;
+  margin: 0 5px;
+
+  background: $bg-color;
+  box-shadow: 0 0 7px rgba(0,0,0,.005);
+  color: $accent;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 19px;
+  font-weight: 300;
+  img {
+    display: block;
+  }
+  .discount {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+
+    width: 95px;
+    height: 95px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 50%;
+    background: $error;
+    color: white;
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: 300;
+    justify-content: center;
+    small {
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 10px;
+    }
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .info {
+    padding: 22px 7px 0;
+  }
+  .left {
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+    width: 125px;
+    padding-right: 12px;
+  }
+  .right {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 127px);
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 24px;
+    margin: 15px 0 20px;
+  }
+}

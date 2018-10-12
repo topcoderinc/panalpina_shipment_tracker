@@ -1,0 +1,161 @@
+<!-- if no routes founded -->
+<div class="result-entry" *ngIf="!data?.length">
+  <div class="result-entry-inner">
+    No routes found
+  </div>
+</div>
+
+<!-- routes list -->
+<div class="result-entry" *ngFor="let item of data">
+  <div class="result-entry-inner">
+    <div class="route-type-icon" (click)="select(item)">
+      <span class="ic ic-{{item.shipmentType === 'air' ? 'plane' : 'boat'}}-w"></span>
+    </div>
+
+    <div class="progress-status" (click)="select(item)">
+      <div class="title">{{item.shipmentNumber}}</div>
+      <!-- status bar -->
+      <div class="progress-wrap {{item.schedule === 'on-schedule' ? 'success' : 'danger'}}">
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="item.progress*100"></div>
+        </div>
+        <span class="progr-detail">Departure to transit location</span>
+      </div>
+    </div>
+
+    <!-- route main info -->
+    <div class="stats-rows" (click)="state.selected !== item.shipmentNumber && select(item)">
+      <div class="stats-cols">
+        <div class="col sm-col">
+          <span class="label">From</span>
+          <span class="value">{{item.from.port}}</span>
+        </div>
+
+        <div class="col ic-col">
+          <span class="label"></span>
+          <span class="value">
+            <span class="ic ic-{{item.shipmentType === 'air' ? 'plane' : 'boat'}}-blk"></span>
+          </span>
+        </div>
+
+        <div class="col sm-col">
+          <span class="label">To</span>
+          <span class="value">{{item.to.port}}</span>
+        </div>
+
+        <div class="col md-col">
+          <span class="label">Status</span>
+          <span class="value">{{item.status}}</span>
+        </div>
+
+        <div class="col lg-col">
+          <span class="label">Last Update</span>
+          <span class="value">{{item.lastUpdate|date:'MM/dd/y HH:mm'}}</span>
+        </div>
+
+        <div class="col lg-col">
+          <span class="label">ETD</span>
+          <span class="value">{{item.etd|date:'MM/dd/y HH:mm'}}</span>
+        </div>
+
+        <div class="col lg-col">
+          <span class="label">ETA</span>
+          <span class="value">{{item.eta|date:'MM/dd/y HH:mm'}}</span>
+        </div>
+      </div>
+
+      <!-- route details -->
+      <ng-container *ngIf="isActive(item, 'details')">
+        <div class="stats-cols">
+          <div class="col xl-col">
+            <span class="label">Issue Place</span>
+            <span class="value">{{item.issuePlace}}</span>
+          </div>
+
+          <div class="col md-col">
+            <span class="label">Issue Date</span>
+            <span class="value">{{item.issueDate|date:'y-MM-dd'}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">Carrier</span>
+            <span class="value">{{item.carrier}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">Flight</span>
+            <span class="value">{{item.flight}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">MAWB</span>
+            <span class="value">{{item.mawb}}</span>
+          </div>
+        </div>
+
+        <div class="stats-cols">
+          <div class="col xl-col">
+            <span class="label">Customer Reference</span>
+            <span class="value">{{item.customerReference}}</span>
+          </div>
+
+          <div class="col md-col">
+            <span class="label">Incoterms</span>
+            <span class="value">{{item.incoterms}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">Delivery Terms</span>
+            <span class="value">{{item.deliveryTerms}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">File No</span>
+            <span class="value">{{item.fileNo}}</span>
+          </div>
+        </div>
+
+        <div class="stats-cols">
+          <div class="col xl-col">
+            <span class="label">Pieces</span>
+            <span class="value">{{item.pieces}}</span>
+          </div>
+
+          <div class="col md-col">
+            <span class="label">Volume</span>
+            <span class="value">{{item.volume}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">Weight</span>
+            <span class="value">{{item.weight}}</span>
+          </div>
+
+          <div class="col lg-col">
+            <span class="label">C.Weight</span>
+            <span class="value">{{item.cWeight}}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- row actions -->
+    <div class="col view-more-col">
+      <a class="link" href="javascript:;" (click)="toggleView(item, 'details')">
+        {{isActive(item, 'details') ? 'Hide' : 'View'}} Details
+      </a>
+      <a class="link" href="javascript:;" (click)="toggleView(item, 'timeline')">
+        {{isActive(item, 'timeline') ? 'Hide' : 'View'}} Timeline
+      </a>
+    </div>
+
+    <a class="rm-row" href="javascript:;" (click)="removeItem(item)">
+      <span class="ic ic-close"></span>
+    </a>
+  </div>
+
+  <!-- route timeline -->
+  <ng-container *ngIf="isActive(item, 'timeline')">
+     <app-shipment-timeline [items]="item.events"></app-shipment-timeline>
+  </ng-container>
+</div>

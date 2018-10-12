@@ -1,0 +1,448 @@
+[
+    {
+        "from": {
+            "port": "PNH",
+            "country": "Kambodia"
+        },
+        "to": {
+            "port": "ZAZ",
+            "country": "Qatar"
+        },
+        "shipmentType": "air",
+        "status": "ARR (HAWB)",
+        "schedule": "on-schedule",
+        "shipmentNumber": "PNH009736",
+        "lastUpdate": "08-01-2018 18:20",
+        "etd": "07-30-2018 09:00",
+        "eta": "08-01-2018 18:25",
+        "issueDate": "07-20-2018",
+        "issuePlace": "PNH (Phnom Phen)",
+        "carrier": "Qatar Airways",
+        "flight": "8975/30",
+        "mawb": "157-48153140",
+        "customerReference": "55567",
+        "incoterms": "FCA",
+        "deliveryTerms": "-",
+        "fileNo": "11567",
+        "pieces": "155",
+        "volume": "14.88 m3",
+        "weight": "2974.000 KG",
+        "cWeight": "2974.000 KG",
+        "progress": 0.3,
+        "lastEvent": {
+            "status": "Departed",
+            "from": "Phnom Penh"
+        },
+        "events": [
+            {
+                "id": 1,
+                "start": "07-19-2018 07:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Issued AWB at Phnom Penh"
+            },
+            {
+                "id": 2,
+                "start": "07-19-2018 09:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Booked at Phnom Penh"
+            },
+            {
+                "id": 3,
+                "start": "07-20-2018 05:00",
+                "end": "07-26-2018 12:15",
+                "short": "NFD",
+                "event": "Notification New ETD at Phnom Penh"
+            },
+            {
+                "id": 4,
+                "start": "07-26-2018 12:15",
+                "end": "07-28-2018 06:13",
+                "short": "MAN",
+                "event": "Manifested at Phnom Penh"
+            },
+            {
+                "id": 5,
+                "start": "07-28-2018 06:13",
+                "end": "07-30-2018 00:00",
+                "short": "DEP",
+                "event": "Cargo Departed from Phnom Penh to Doha"
+            },
+            {
+                "id": 6,
+                "start": "07-30-2018 00:00",
+                "end": "07-30-2018 17:05",
+                "short": "NFA",
+                "event": "Notification New ETA at Zaragoza"
+            },
+            {
+                "id": 7,
+                "start": "07-31-2018 21:45",
+                "end": "08-01-2018 18:25",
+                "short": "ARR",
+                "event": "Cargo Arrival at Zaragoza"
+            }
+        ],
+        "packageGeoInfo": {
+            "trackingNumber": "PNH009736",
+            "geoData": [
+                {
+                    "lat": 35,
+                    "lng": 140,
+                    "location": {"port": "PNH", "country": "Kambodia"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": 40,
+                    "lng": 96,
+                    "currentLocation": true,
+                    "location": {"port": "PNH", "country": "Kambodia"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": 50,
+                    "lng": 8,
+                    "location": {"port": "ZAZ", "country": "Qatar"},
+                    "date": "07-23-2018 05:18"
+                }
+            ]
+        }
+    },
+    {
+        "from": {
+            "port": "NRT",
+            "country": "Kambodia"
+        },
+        "to": {
+            "port": "CGK",
+            "country": "Qatar"
+        },
+        "shipmentType": "air",
+        "status": "DEP (HAWB)",
+        "schedule": "on-schedule",
+        "shipmentNumber": "TKY001234",
+        "lastUpdate": "08-01-2018 9:15",
+        "etd": "08-01-2018 16:0",
+        "eta": "08-01-2018 21:40",
+        "issueDate": "07-20-2018",
+        "issuePlace": "NRT",
+        "carrier": "LUFTHANSA",
+        "flight": "LH 8387/22",
+        "mawb": "157-48153140",
+        "customerReference": "55567",
+        "incoterms": "FCA",
+        "deliveryTerms": "-",
+        "fileNo": "11567",
+        "pieces": "155",
+        "volume": "14.88 m3",
+        "weight": "2974.000 KG",
+        "cWeight": "2974.000 KG",
+        "progress": 0.95,
+        "lastEvent": {
+            "status": "Cargo Arrived",
+            "from": "NRT Kambodia",
+            "to": "EMG Qatar"
+        },
+        "events": [
+            {
+                "id": 1,
+                "start": "07-19-2018 07:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Issued AWB at Phnom Penh"
+            },
+            {
+                "id": 2,
+                "start": "07-19-2018 09:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Booked at Phnom Penh"
+            },
+            {
+                "id": 3,
+                "start": "07-20-2018 05:00",
+                "end": "07-26-2018 12:15",
+                "short": "NFD",
+                "event": "Notification New ETD at Phnom Penh"
+            },
+            {
+                "id": 4,
+                "start": "07-26-2018 12:15",
+                "end": "07-28-2018 06:13",
+                "short": "MAN",
+                "event": "Manifested at Phnom Penh"
+            },
+            {
+                "id": 5,
+                "start": "07-28-2018 06:13",
+                "end": "07-30-2018 00:00",
+                "short": "DEP",
+                "event": "Cargo Departed from Phnom Penh to Doha"
+            },
+            {
+                "id": 6,
+                "start": "07-30-2018 00:00",
+                "end": "07-30-2018 17:05",
+                "short": "NFA",
+                "event": "Notification New ETA at Zaragoza"
+            },
+            {
+                "id": 7,
+                "start": "07-31-2018 21:45",
+                "end": "08-01-2018 18:25",
+                "short": "ARR",
+                "event": "Cargo Arrival at Zaragoza"
+            }
+        ],
+        "packageGeoInfo": {
+            "trackingNumber": "NRT203197",
+            "geoData": [
+                {
+                    "lat": -23.565354,
+                    "lng": -45.211647,
+                    "location": {"port": "NRT", "country": "Kambodia"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": 35.17009,
+                    "lng": -75.808507,
+                    "location": {"port": "EMG", "country": "Qatar"},
+                    "date": "07-23-2018 05:18"
+                  },
+                  {
+                    "lat": 40.17009,
+                    "lng": -80.808507,
+                    "currentLocation": true,
+                    "location": {"port": "CGK", "country": "Qatar"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": 45.17009,
+                    "lng": -85.808507,
+                    "location": {"port": "CGK", "country": "Qatar"},
+                    "date": "07-23-2018 05:18"
+                }
+            ]
+        }
+    },
+    {
+        "from": {
+            "port": "BRRIO",
+            "country": "Kambodia"
+        },
+        "to": {
+            "port": "USNYC",
+            "country": "Qatar"
+        },
+        "shipmentType": "ocean",
+        "status": "ARR (HAWB)",
+        "schedule": "on-schedule",
+        "shipmentNumber": "BRRIO-006783",
+        "lastUpdate": "08-01-2018 13:25",
+        "etd": "08-01-2018 08:00",
+        "eta": "08-01-2018 18:35",
+        "issueDate": "07-20-2018",
+        "issuePlace": "NRT",
+        "carrier": "LUFTHANSA",
+        "flight": "LH 8387/22",
+        "mawb": "157-48153140",
+        "customerReference": "55567",
+        "incoterms": "FCA",
+        "deliveryTerms": "-",
+        "fileNo": "11567",
+        "pieces": "155",
+        "volume": "14.88 m3",
+        "weight": "2974.000 KG",
+        "cWeight": "2974.000 KG",
+        "progress": 0.2,
+        "lastEvent": {
+            "status": "Cargo Departed",
+            "from": "BRRIO"
+        },
+        "events": [
+            {
+                "id": 1,
+                "start": "07-19-2018 07:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Issued AWB at Phnom Penh"
+            },
+            {
+                "id": 2,
+                "start": "07-19-2018 09:00",
+                "end": "07-20-2018 05:00",
+                "short": "BKD",
+                "event": "Booked at Phnom Penh"
+            },
+            {
+                "id": 3,
+                "start": "07-20-2018 05:00",
+                "end": "07-26-2018 12:15",
+                "short": "NFD",
+                "event": "Notification New ETD at Phnom Penh"
+            },
+            {
+                "id": 4,
+                "start": "07-26-2018 12:15",
+                "end": "07-28-2018 06:13",
+                "short": "MAN",
+                "event": "Manifested at Phnom Penh"
+            },
+            {
+                "id": 5,
+                "start": "07-28-2018 06:13",
+                "end": "07-30-2018 00:00",
+                "short": "DEP",
+                "event": "Cargo Departed from Phnom Penh to Doha"
+            },
+            {
+                "id": 6,
+                "start": "07-30-2018 00:00",
+                "end": "07-30-2018 17:05",
+                "short": "NFA",
+                "event": "Notification New ETA at Zaragoza"
+            },
+            {
+                "id": 7,
+                "start": "07-31-2018 21:45",
+                "end": "08-01-2018 18:25",
+                "short": "ARR",
+                "event": "Cargo Arrival at Zaragoza"
+            }
+        ],
+        "packageGeoInfo": {
+            "trackingNumber": "NRT203197",
+            "geoData": [
+                {
+                    "lat": -19.62786,
+                    "lng": -39.634523,
+                    "location": {"port": "BRRIO", "country": "Kambodia"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": -10,
+                    "lng": -30.36325,
+                    "currentLocation": true,
+                    "location": {"port": "USNYC", "country": "Qatar"},
+                    "date": "07-19-2018 07:00"
+                  },
+                  {
+                    "lat": 8.62786,
+                    "lng": -13.634523,
+                    "location": {"port": "USNYC", "country": "Qatar"},
+                    "date": "07-23-2018 05:18"
+                }
+            ]
+        }
+    },
+    {
+        "from": {
+            "port": "LKHBA",
+            "country": "Kambodia"
+        },
+        "to": {
+            "port": "AUPER",
+            "country": "Qatar"
+        },
+        "shipmentType": "ocean",
+        "status": "DEP (HAWB)",
+        "schedule": "delayed",
+        "shipmentNumber": "LKHBA-004459",
+        "lastUpdate": "10-01-2018 18:20",
+        "etd": "10-30-2018 09:00",
+        "eta": "10-01-2018 18:35",
+        "issueDate": "10-05-2018",
+        "issuePlace": "NRT",
+        "carrier": "LUFTHANSA",
+        "flight": "LH 8387/22",
+        "mawb": "157-48153140",
+        "customerReference": "55567",
+        "incoterms": "FCA",
+        "deliveryTerms": "-",
+        "fileNo": "11567",
+        "pieces": "155",
+        "volume": "14.88 m3",
+        "weight": "2974.000 KG",
+        "cWeight": "2974.000 KG",
+        "progress": 0.25,
+        "lastEvent": {
+            "status": "Cargo Arrived",
+            "from": "Phnom Penh",
+            "to": "Doha"
+        },
+        "warning": {
+            "reason": "Inclement Weather",
+            "resolution": "Potential Delay",
+            "delay": "+7 hours"
+        },
+        "events": [
+            {
+                "id": 1,
+                "start": "10-01-2018 07:00",
+                "end": "10-02-2018 05:00",
+                "short": "BKD",
+                "event": "Issued AWB at Phnom Penh"
+            },
+            {
+                "id": 2,
+                "start": "10-01-2018 09:00",
+                "end": "10-02-2018 05:00",
+                "short": "BKD",
+                "event": "Booked at Phnom Penh"
+            },
+            {
+                "id": 3,
+                "start": "10-02-2018 05:00",
+                "end": "10-02-2018 12:15",
+                "short": "NFD",
+                "event": "Notification New ETD at Phnom Penh"
+            },
+            {
+                "id": 4,
+                "start": "10-02-2018 12:15",
+                "end": "10-06-2018 06:13",
+                "short": "MAN",
+                "event": "Manifested at Phnom Penh"
+            },
+            {
+                "id": 5,
+                "start": "10-06-2018 06:13",
+                "end": "10-07-2018 00:00",
+                "short": "DEP",
+                "event": "Cargo Departed from Phnom Penh to Doha"
+            },
+            {
+                "id": 6,
+                "start": "10-06-2018 11:00",
+                "end": "10-08-2018 17:05",
+                "short": "NFA",
+                "event": "Notification New ETA at Zaragoza"
+            },
+            {
+                "id": 7,
+                "start": "10-08-2018 21:45",
+                "end": "10-15-2018 18:25",
+                "short": "ARR",
+                "event": "Cargo Arrival at Zaragoza"
+            }
+        ],
+        "packageGeoInfo": {
+            "trackingNumber": "NRT203197",
+            "geoData": [
+                {
+                    "lat": -22.550888,
+                    "lng": 113.664049,
+                    "location": {"port": "LKHBA", "country": "Australia"},
+                    "date": "07-19-2018 07:00"
+                },
+                {
+                    "lat": 5.94021,
+                    "lng": 80.550061,
+                    "location": {"port": "AUPER", "country": "Sri Lanka"},
+                    "date": "07-23-2018 05:18"
+                }
+            ]
+        }
+    }
+]

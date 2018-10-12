@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>FilterOcean</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="FilterOcean" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#373C8C" cx="16" cy="16" r="16"></circle>
+        <g id="VesselWhite" transform="translate(5.000000, 8.000000)" fill="#FFFFFF">
+            <g id="Vessel">
+                <polygon id="Path-3" points="23 7 18.8493633 14 1.09947237 14 0 8.55121445 15.9636764 8.55121445 16.9482406 7"></polygon>
+                <polygon id="Path-4" points="16.2352941 2.8 16.2352941 6.00691313 15.7047212 7.29357975 5.18445372 7.29357975 5.18445372 2.8"></polygon>
+                <polygon id="Path-5" points="5.41176471 0 0 0 0 1.01787425 0.399925584 1.01787425 0.399925584 7.25678033 3.99882379 7.25678033 3.99882379 0.978383436 4.6873939 0.978383436"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

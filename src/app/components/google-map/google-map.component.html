@@ -1,0 +1,74 @@
+<div class="map-wrap">
+  <div class="map" #map></div>
+
+  <!-- map controls -->
+  <div class="map-controls" #mapControls>
+    <div class="control-btn zoom-in" (click)="setMapZoom(mapZoom + 1)">
+      <span class="ic ic-zoom-in"></span>
+    </div>
+    <div class="control-btn zoom-out" (click)="setMapZoom(mapZoom - 1)">
+      <span class="ic ic-zoom-out"></span>
+    </div>
+  </div>
+
+  <!-- map legend -->
+  <div class="map-legend">
+    <div class="complete">Complete Route</div>
+    <div class="next">Next Route</div>
+  </div>
+
+  <!-- map infoindow -->
+  <div class="infowindow" [class.warning]="isWarning" #infoWindow>
+    <ng-container *ngIf="!isWarning && activeMarker.item as item">
+      <div class="title">{{activeMarker.loc.port}} <em>({{activeMarker.loc.country}})</em></div>
+      <div class="flex-wrap main-info">
+        <div class="no">{{item.shipmentNumber}}</div>
+        <div class="status {{item.schedule}}">{{item.schedule === 'on-schedule' ? 'On Schedule' : 'Delayed'}}</div>
+      </div>
+      <div class="flex-wrap">
+        <div class="from">
+          <div>From</div>
+          <div class="value">{{item.from.port}}</div>
+          <div>{{item.from.country}}</div>
+        </div>
+        <div class="to">
+          <div>To</div>
+          <div class="value">{{item.to.port}}</div>
+          <div>{{item.to.country}}</div>
+        </div>
+      </div>
+      <div>
+        <div class="etd">
+          ETD: <strong>{{item.etd}}</strong>
+        </div>
+        <div class="eta">
+          ETA: <strong>{{item.eta}}</strong>
+        </div>
+      </div>
+      <div class="flex-wrap dates">
+        <div>
+          Flight
+          <div class="value">{{item.flight}}</div>
+        </div>
+        <div>
+          Arrived at
+          <div class="value">{{item.issueDate}}</div>
+        </div>
+      </div>
+      <div class="footer" *ngIf="item.lastEvent">
+        {{item.lastEvent.status}}
+        <ng-container *ngIf="item.lastEvent.from">from <strong>{{item.lastEvent.from}}</strong></ng-container>
+        <ng-container *ngIf="item.lastEvent.to">&nbsp;to <strong>{{item.lastEvent.to}}</strong></ng-container>.
+      </div>
+    </ng-container>
+
+    <!-- warning infowindow -->
+    <ng-container *ngIf="isWarning && activeMarker.item as item">
+      <div>
+        <div class="value">{{item.warning.reason}}</div>
+        <div>{{item.warning.resolution}}</div>
+        <div class="highlight">{{item.warning.delay}}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>

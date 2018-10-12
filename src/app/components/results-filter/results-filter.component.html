@@ -1,0 +1,51 @@
+<div class="panel">
+  <div class="group">
+    <div class="numbers">Tracking Number(s)</div>
+    <div *ngIf="!filters.shipmentNumber?.length">No tracking number</div>
+    <!-- results list numbers -->
+    <div class="no" *ngFor="let item of filters.shipmentNumber">
+      {{item}}
+      <span class="close" (click)="applyFilter('shipmentNumber', item)">
+        <span class="ic ic-close-o"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- shipement type filter -->
+  <div class="group">
+    <div class="label">Shipment Type:</div>
+    <div class="types">
+      <div class="type" [class.active]="isActive('shipmentType', 'air')" (click)="applyFilter('shipmentType', 'air')">
+        <img src="/assets/i/icons/ic-filter-air{{isActive('shipmentType', 'air') ? '' : '-gray'}}.svg" alt="AirFilter" />
+        <span>Air</span>
+      </div>
+      <div class="type" [class.active]="isActive('shipmentType', 'ocean')" (click)="applyFilter('shipmentType', 'ocean')">
+        <img src="/assets/i/icons/ic-filter-ocean{{isActive('shipmentType', 'ocean') ? '' : '-gray'}}.svg" alt="OceanFilter"/>
+        <span>Ocean</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- status filter -->
+  <div class="group">
+    <div class="label">Status:</div>
+    <div class="status" [class.active]="isActive('schedule', 'on-schedule')" (click)="applyFilter('schedule', 'on-schedule')">
+      <span class="color schedule"></span>
+      <span>On Schedule</span>
+    </div>
+    <div class="status" [class.active]="isActive('schedule', 'delayed')" (click)="applyFilter('schedule', 'delayed')">
+      <span class="color delayed"></span>
+      <span>Delayed</span>
+    </div>
+  </div>
+
+  <!-- sort dropdown-->
+  <div class="group">
+    <span class="label">Sort by </span>
+    <div class="select">
+      <select [(ngModel)]="sort" (change)="changeSort()">
+        <option *ngFor="let c of sortOptions" [value]="c.value">{{c.label}}</option>
+      </select>
+    </div>
+  </div>
+</div>

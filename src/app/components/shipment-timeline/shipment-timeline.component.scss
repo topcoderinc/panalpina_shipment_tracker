@@ -1,0 +1,139 @@
+@import 'variables';
+
+app-d3-svg {
+  width: 100%;
+  height: 558px;
+
+  /deep/ {
+    svg {
+      font-size: 12px;
+    }
+
+    .title {
+      font-size: 16px;
+      fill: $text-color;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .axis {
+      font-size: 14px;
+      .domain {
+        stroke: $border-color-dark;
+      }
+    }
+
+    // chart y axis style
+    .axis--y {
+      .v-line {
+        stroke: $border-color-dark;
+      }
+
+      .tick {
+        text-anchor: start;
+
+        text {
+          fill: $hovered-text;
+        }
+
+        .short-status {
+          text {
+            text-anchor: middle;
+            font-weight: normal;
+            font-size: 12px;
+            fill: white;
+            line-height: 1;
+          }
+
+          rect {
+            fill: $success;
+          }
+
+          &.in-progress {
+            text {
+              fill: $label-color;
+            }
+
+            rect {
+              fill: white;
+              stroke: $label-color;
+            }
+          }
+        }
+      }
+    }
+
+    // chart x axis style
+    .axis--x {
+      .tick:first-of-type,
+      .tick:last-of-type {
+        opacity: 0;
+      }
+
+      .tick text {
+        fill: $timeline-tick-color;
+        font-size: 12px;
+      }
+
+      .tick line {
+        stroke: rgba($border-color-dark, .5);
+        stroke-width: 1px;
+      }
+
+      .tick .mnth-label {
+        fill: $label-color;
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+
+    .bars-wrap {
+      .bg-bar {
+        fill: $faded-bg-color;
+      }
+      .bar:nth-child(odd) .bg-bar {
+        display: none;
+      }
+    }
+
+    .bar {
+      fill: $success;
+      .gray {
+        fill: $progress-bg-color;
+      }
+    }
+
+    .end-val {
+      fill: $label-color;
+      font-weight: 500;
+    }
+
+    .duration-text {
+      fill: white;
+      font-weight: 500;
+    }
+
+    .cursor {
+      line {
+        stroke: $accent;
+        stroke-width: 1px;
+        stroke-dasharray: 5;
+      }
+    }
+
+    // cursor line text
+    .cursor-text {
+      text {
+        text-anchor: middle;
+        font-weight: normal;
+        font-size: 12px;
+        fill: white;
+        line-height: 1;
+      }
+
+      rect {
+        fill: $text-color;
+      }
+    }
+  }
+}

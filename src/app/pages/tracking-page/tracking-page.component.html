@@ -1,0 +1,65 @@
+<app-page-header></app-page-header>
+
+<div class="page-wrap">
+  <div class="page-content">
+
+    <!-- info section -->
+    <div class="page-info">
+      <h1>Track With The Easiest Way</h1>
+      <p>Need the status of your shipment fast? Enter your tracking number or your other shipment information below.</p>
+    </div>
+
+    <!-- form section -->
+    <div class="form-wrap">
+      <div class="form-content">
+        <div class="form-control dropdown xl" appDropdown>
+          <div class="value">
+            <div class="placeholder" *ngIf="!reference">Select a reference</div>
+            <div *ngIf="reference">{{reference}}</div>
+          </div>
+          <div class="dropdown-content" dropdownMenu>
+            <div class="option" [class.active]="reference===opt" *ngFor="let opt of referenceOptions" (click)="reference=opt">{{opt}}</div>
+          </div>
+        </div>
+
+        <div class="values">
+          <div class="form-control tracking-numbers-wrap">
+            <input class="search-input form-control xl" placeholder="Enter shipment number(s)" (keyup)="onInputUpdate($event.target.value)" #input />
+
+            <!-- searched results list -->
+            <ng-container *ngIf="trackingNumbers.length">
+              <ul class="tracking-numbers">
+                <li *ngFor="let item of trackingNumbers">
+                  <span>{{item.number}}</span>
+                  <span class="type">
+                    <span *ngIf="item.type">{{item.type}}</span>
+
+                    <span class="searching" *ngIf="item.type===0">
+                      <span class="ic ic-reload"></span>
+                      Searching...
+                    </span>
+
+                    <a href="javascript:;" class="close" (click)="remove(item)">
+                      <span class="ic ic-close-o"></span>
+                    </a>
+                  </span>
+                </li>
+              </ul>
+
+              <div class="list-actions">
+                <a href="javascript:;" (click)="trackingNumbers=[]">Clear All</a>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="info">
+            <span>You can enter multiple numbers (separated by commas)</span>
+            <span class="ic ic-help"></span>
+          </div>
+        </div>
+
+        <a [routerLink]="['/results']" [queryParams]="{q: searchQuery}" class="btn xl" [class.disabled]="!searchQuery">TRACK</a>
+      </div>
+    </div>
+  </div>
+</div>

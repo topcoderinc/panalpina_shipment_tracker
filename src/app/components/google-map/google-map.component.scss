@@ -1,0 +1,222 @@
+@import 'variables';
+
+// map containers
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  > .infowindow {
+    display: none;
+  }
+}
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-legend,
+.map-controls {
+  position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
+  background: $bg-color;
+  box-shadow: 0 0 10px rgba(0,0,0,.15);
+}
+
+// map controls position
+.map-controls {
+  top: 20px;
+  right: 20px;
+  .ic {
+    opacity: .5;
+  }
+  .control-btn + .control-btn {
+    border-top: solid 1px $border-color;
+  }
+}
+
+// map control button style
+.control-btn {
+  width: 36px;
+  height: 40px;
+  margin: 0 2px;
+  background-color: $bg-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+// map legend
+.map-legend {
+  bottom: 20px;
+  left: 20px;
+  padding: 0 10px;
+  // complete & next route
+  .complete,
+  .next {
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    font-size: 12px;
+    line-height: 40px;
+    margin: 0 10px;
+    &:before {
+      content: '';
+      width: 20px;
+      margin: 0 10px 0 0;
+    }
+  }
+  .complete:before {
+    height: 3px;
+    background: $accent;
+
+  }
+  .next:before {
+    margin-left: 10px;
+    border-bottom: dotted 3px $next-route-color;
+  }
+}
+
+// map infowindow
+.infowindow {
+  min-width: 225px;
+  background-color: $bg-color;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  font-size: 12px;
+  line-height: 16px;
+  color: $label-color;
+  position: absolute;
+  border-radius: 5px;
+  border: solid 1px $next-route-color;
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 102px;
+    border-right: solid 10px $next-route-color;
+    border-top: solid 8px transparent;
+    border-bottom: solid 8px transparent;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 102px;
+    border-right: solid 10px white;
+    border-top: solid 8px transparent;
+    border-bottom: solid 8px transparent;
+  }
+
+  // infowindow warning message
+  &.warning {
+    margin-top: 74px;
+    border-color: $error;
+    &:before,
+    &:after {
+      top: 26px;
+    }
+    &:before {
+      border-right-color: $error;
+    }
+  }
+
+  > * {
+    padding: 10px 15px;
+  }
+
+  .flex-wrap {
+    display: flex;
+    align-items: center;
+    > * {
+      width: 50%;
+    }
+  }
+
+  .title, .value, strong {
+    color: $text-color;
+    font-weight: 400;
+  }
+
+  .title {
+    font-size: 18px;
+    padding-top: 20px;
+
+    em {
+      font-style: normal;
+      color: $label-color;
+    }
+  }
+  .value {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .main-info {
+    background: #f5f5f5;
+    .no {
+      color: $accent;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .status {
+      &.on-schedule {
+        color: $success;
+      }
+      &.delayed {
+        color: $error;
+      }
+    }
+  }
+  .dates {
+    background: #fafafa;
+  }
+  .etd {
+    margin-top: -10px;
+  }
+  .to {
+    position: relative;
+  }
+  .to:before {
+    content: '';
+    background: url('/assets/i/icons/ic-plane-grey.svg') center no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 13px;
+    position: absolute;
+    right: 100%;
+    top: 18px;
+    margin-right: 10px;
+  }
+
+  .footer {
+    border-top: solid 1px $border-color;
+  }
+
+  .highlight {
+    color: $error;
+    font-weight: 500;
+  }
+}
+
+// hide infowindow close button
+/deep/ .marker-infowindow-wrap img {
+  display: none;
+}
+
+
+// marker label
+/deep/ .marker-label {
+  color: white;
+  background-color: #393A3C;
+  opacity: 0.8;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 0 12px;
+  border-radius: 12px;
+  &.inactive {
+    opacity: .3;
+  }
+}

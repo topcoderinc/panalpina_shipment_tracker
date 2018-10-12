@@ -1,0 +1,117 @@
+@import 'variables';
+
+// filters wrapper
+.panel {
+  min-width: 195px;
+  padding: 5px 15px;
+  min-height: 100%;
+  overflow: hidden;
+  background-color: $box-color;
+  box-shadow: -2px 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $border-color;
+
+  font-size: 14px;
+  line-height: 17px;
+  color: $text-color;
+}
+
+// group of filters
+.group {
+  padding: 15px 0;
+}
+.group:not(:last-of-type) {
+  border-bottom: solid 1px $border-color-dark;
+}
+.label {
+  color: $label-color;
+}
+
+// results list
+.numbers {
+  margin-bottom: 15px;
+  color: $accent;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+}
+
+.no {
+  display: inline-block;
+  height: 24px;
+  padding: 0 6px 0 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 24px;
+  border-radius: 15px;
+  background-color: $progress-bg-color;
+}
+
+.close {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+//  shipment type filter
+.types {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.type {
+  width: 50%;
+  opacity: 0.4;
+  cursor: pointer;
+  &.active {
+    opacity: 1;
+  }
+  img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px
+  }
+  span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+// status filter
+.status {
+  opacity: .4;
+  margin-top: 10px;
+  cursor: pointer;
+  &.active {
+    opacity: 1;
+    .schedule {
+      background-color: $success;
+    }
+    .delayed {
+      background-color: $error;
+    }
+  }
+  .color {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background-color: $label-color;
+  }
+  span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+// results sort by
+select {
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}

@@ -1,0 +1,100 @@
+<app-page-header></app-page-header>
+
+<!-- remove on integration -->
+<!-- top ad -->
+<div class="top-card-wrap">
+  <img src="/assets/i/ad.jpg" alt="Ad">
+  <div class="info">
+    <div class="text">
+      <small>Large enterprises</small>
+      <div>we provide end-t-end supply chain solutions taylored for your industry</div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <!-- tabs list -->
+  <div class="tabs">
+    <div class="tab inactive">Quick start:</div>
+    <div class="tab">Plan</div>
+    <div class="tab">Quote <small>with instant prices</small></div>
+    <div class="tab active">Track <small>end-to-end and real-time</small></div>
+    <div class="tab page">Shipping for the first time?</div>
+  </div>
+
+  <!-- map section -->
+  <div class="tracking-map">
+    <div class="search-bar">
+      <label>Reference <span class="ic ic-info"></span></label>
+      <input class="form-control" placeholder="Enter shipment number(s)" [value]="state.filters.shipmentNumber.join(', ')" (change)="updateShipmentFilter($event)" />
+      <div class="btn">TRACK</div>
+    </div>
+    <app-results-filter
+      [class.active]="state.showFilters"
+      [filters]="state.filters"
+      [sort]="state.sort"
+      (filtersChange)="updateFilters($event)"
+      (sortChange)="updateSort($event)"
+    ></app-results-filter>
+
+    <app-google-map
+      [data]="state.results"
+      (activeRouteChange)="resultsTable.showDetails($event)"
+      #gMap="gmap"
+    ></app-google-map>
+  </div>
+
+  <!-- results list section -->
+  <section class="main-section">
+    <header>
+      <h5>Tracking result ({{state.results.length}})</h5>
+      <a class="right-actions" href="javascript:;" (click)="state.showFilters = !state.showFilters">
+        <span class="ic ic-filter" [class.active]="state.showFilters"></span>
+      </a>
+    </header>
+
+    <div class="content">
+      <app-results-table
+        [data]="state.results"
+        (remove)="removeItem($event)"
+        (selectedChange)="gMap.highlightRoute($event)"
+        #resultsTable="table"
+      ></app-results-table>
+    </div>
+  </section>
+</div>
+
+
+<!-- remove on integration -->
+<!-- bottom ads -->
+<div class="cards-wrap">
+  <div class="card">
+    <div class="discount">
+      <span>5%</span>
+      <small>discount</small>
+    </div>
+    <div class="flex">
+      <img src="/assets/i/plane.jpg" alt="Ad">
+      <div class="info">
+        <h3>Try e-quote</h3>
+        <div>Request an air freight quote and book online with panalpina e-quote</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="info">
+      <div class="left">
+        <div>80 000+</div>
+        <div>500+</div>
+        <div>6</div>
+      </div>
+      <div class="right">
+        <div>Scheduled flights</div>
+        <div>Aircraft on demand</div>
+        <div>dedicated routes</div>
+        <h3>discover panalpina charter network</h3>
+      </div>
+    </div>
+    <img src="/assets/i/map.jpg" alt="Map">
+  </div>
+</div>
