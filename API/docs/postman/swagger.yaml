@@ -1,0 +1,369 @@
+---
+swagger: "2.0"
+info:
+  description: "Panalpina Swagger API server."
+  version: "1.0.0"
+  title: "Panalpina API"
+  termsOfService: "http://panalpinaAPI.com/terms/"
+  contact:
+    email: "panalpinaTeam@panalpinaAPI.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "panalpinaAPI.com"
+basePath: "/v1"
+schemes:
+- "https"
+- "http"
+paths:
+  /flight/{shipmentNumber}:
+    get:
+      summary: "Get flight shipment details."
+      description: ""
+      operationId: "getFlightShipment"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "shipmentNumber"
+          in: "path"
+          description: "Flight shipment number."
+          required: true
+          type: "number"
+      responses:
+        200:
+          description: "Success response with shipment details."
+          schema:
+            $ref: "#/definitions/FlightShipmentResponse"
+        404:
+          description: "404 Failure response for non existing shipment."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+        500:
+          description: "500 For internal server errors."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+      x-swagger-router-controller: "Shipment"
+    post:
+      summary: "Update flight shipment details."
+      description: ""
+      operationId: "updateFlightShipment"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "shipmentNumber"
+          in: "path"
+          description: "Flight shipment number."
+          required: true
+          type: "number"
+        - name: "body"
+          in: "body"
+          description: "update shipment details"
+          required: true
+          schema:
+            $ref: "#/definitions/FlightShipmentResponse"
+      responses:
+        200:
+          description: "Success updates on a flight shipment"
+        404:
+          description: "404 Failure response for non existing shipment."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "number"
+        500:
+          description: "500 For internal server errors."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+      x-swagger-router-controller: "Shipment"
+  /freight/{shipmentNumber}:
+    get:
+      summary: "Get freight shipment details."
+      description: ""
+      operationId: "getFreightShipment"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "shipmentNumber"
+          in: "path"
+          description: "Freight shipment number."
+          required: true
+          type: "number"
+      responses:
+        200:
+          description: "Success response with shipment details."
+          schema:
+            $ref: "#/definitions/FreightShipmentResponse"
+        404:
+          description: "404 Failure response for non existing shipment."
+          schema:
+            type: "object"
+            properties:
+              code:  # diagnostic error codes
+                type: "number"
+              message:
+                type: "string"
+        500:
+          description: "500 For internal server errors."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+      x-swagger-router-controller: "Shipment"
+    post:
+      summary: "Update freight shipment details."
+      description: ""
+      operationId: "updateFreightShipment"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "shipmentNumber"
+          in: "path"
+          description: "Flight shipment number."
+          required: true
+          type: "number"
+        - in: "body"
+          name: "body"
+          description: "update shipment details"
+          required: true
+          schema:
+            $ref: "#/definitions/FreightShipmentResponse"
+      responses:
+        200:
+          description: "Success updates on a Freight shipment"
+        404:
+          description: "404 Failure response for non existing shipment."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+        500:
+          description: "500 For internal server errors."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+      x-swagger-router-controller: "Shipment"
+definitions:
+  FlightShipmentResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties:
+          "shipmentNumber": 
+            type: "string"             
+          "status": 
+            type: "string"
+          "customerReference": 
+            type: "string"
+          "lastUpdate": 
+            type: "string"
+          "issueDate": 
+            type: "string"                  
+          "issuePlace": 
+            type: "string"
+          "from": 
+            type: "string"                       
+          "to": 
+            type: "string"                         
+          "flightNumber": 
+            type: "string"                
+          "flight": 
+            type: "string"                     
+          "MAWB": 
+            type: "string"
+          "etd": 
+            type: "string"                        
+          "eta":
+            type: "string"                        
+          "docsReleasedOrDeliveredDate": 
+            type: "string" 
+          "carrierPrefix": 
+            type: "string"               
+          "carrier": 
+            type: "string"
+          "inconterms": 
+            type: "string"
+          "deliveryTerms": 
+            type: "string"
+          "fileNumber": 
+            type: "string"
+          "pieces": 
+            type: "string"
+          "weight": 
+            type: "string"
+          "volume": 
+            type: "string"
+          "events":
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                date:
+                  type: "string"
+                event:
+                  type: "string"
+    
+          "packageGeoInfo":  
+            type: "array"
+            items:
+              type: "object"
+              properties:
+               "geoData": 
+                 type: "array"
+                 items:
+                   type: "object"
+                   properties:
+                      "lat": 
+                       type: "string"
+                      "log": 
+                       type: "string"
+                      "location": 
+                       type: "string"
+                      "date": 
+                       type: "string"
+        
+  FreightShipmentResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties:
+          "paintainerHBL": 
+            type: "string"
+          "status": 
+            type: "string"
+          "customerReference": 
+            type: "string"
+          "lastUpdate":
+            type: "string"
+          "issueDate": 
+            type: "string"                  
+          "issuePlace": 
+            type: "string"
+          "receivedDate": 
+            type: "string"               
+          "releasedDate": 
+            type: "string"               
+          "shippingLine": 
+            type: "string"               
+          "placeOfReceipt": 
+            type: "string"            
+          "placeOfDelivery": 
+            type: "string"            
+          "vessel": 
+            type: "string"                     
+          "carrier": 
+            type: "string"
+          "portOfLoading": 
+            type: "string"              
+          "portOfDischarge": 
+            type: "string"            
+          "voyageNumber": 
+            type: "string"               
+          "incoterms": 
+            type: "string"
+          "etd": 
+            type: "string"                        
+          "eta": 
+            type: "string"                        
+          "totalPieces": 
+            type: "string"                
+          "weight": 
+            type: "string"                     
+          "volume": 
+            type: "string"                     
+          "containerNumber": 
+            type: "string"
+          "size":
+            type: "string"
+          "sealNumber": 
+            type: "string"
+      
+          "events":
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  date:
+                    type: "string"
+                  event:
+                    type: "string"
+                  
+          "packageGeoInfo":  
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                "vesselCurrentPosition":
+                 type: "object"
+                 properties:
+                  "mmsi":
+                    type: "string"
+                  "lat":
+                    type: "string"
+                  "lon": 
+                    type: "string"
+                  "timestamp":
+                    type: "string"
+                                 
+                "vesselVoyageInfo":
+                  type: "object"
+                  properties:
+                    "route": 
+                      type: "array"
+                      items:
+                        type: "object"  
+                        properties:                  
+                          "lat": 
+                            type: "string"
+                          "lon": 
+                            type: "string"
+                  
+                    "distanceTravelled": 
+                      type: "string"
+                    "distanceToGo": 
+                      type: "string"
+                            
+                "vesselHistoricPosition": 
+                  type: "array"
+                  items:
+                     type: "object"                  
+                     properties:
+                       "lat": 
+                         type: "string"
+                       "lon": 
+                         type: "string"
+                       "timestamp": 
+                         type: "string"
+                                   
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
