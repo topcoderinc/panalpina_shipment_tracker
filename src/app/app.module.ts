@@ -13,7 +13,6 @@ import { ResultsPageComponent } from './pages/results-page/results-page.componen
 
 
 import { GMapsLoader } from './services/gmaps-loader.service';
-import { ApiService } from './services/api.service';
 import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
@@ -31,8 +30,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
     FormsModule,
   ],
   providers: [
-    GMapsLoader,
-    ApiService,
+    GMapsLoader
   ],
   bootstrap: [AppComponent]
 })

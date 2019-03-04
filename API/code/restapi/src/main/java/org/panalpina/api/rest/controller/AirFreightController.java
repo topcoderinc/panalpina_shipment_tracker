@@ -65,11 +65,9 @@ class AirFreightController {
   /**
    * Method that retrieves information for specified air freight
    * 
-   * @param airFreight
-   *          air freight
+   * @param airFreight air freight
    * @return ResponseEntity<?>
-   * @throws Exception
-   *           Exception
+   * @throws Exception Exception
    */
   @GetMapping("/v1/flight/{airFreight}")
   ResponseEntity<?> getFlight(@PathVariable String airFreight) throws Exception {
@@ -80,12 +78,12 @@ class AirFreightController {
       String ETD = record.getEtd();
       String date = formatDate(ETD);
       String flight = prepareFlight(record);
-      String faFlightID = retrieveFaFlightID(flight, date, "");
+      JsonNode flightNode = retrieveFaFlightID(flight, date, "");
 
-      if(faFlightID == null) {
+      if (flightNode == null) {
         return prepareErrorMessage("500", AppConstant.INTERNAL_SERVER_ERROR_MSG);
       }
-      
+      String faFlightID = flightNode.get("faFlightID").asText();
       List<FlightTrack> flightTracks = retrieveflightTracks(faFlightID);
 
       if (flightTracks == null) {
@@ -93,6 +91,8 @@ class AirFreightController {
       }
 
       FlightShipmentResponse data = new FlightShipmentResponse();
+      data.setProgressPercentage(flightNode.get("progress_percent").asInt());
+      data.setSchedule(flightNode.get("status").asText());
       data.setAirFreight(record);
       data.setFlightTracks(flightTracks);
       return new ResponseEntity<>(data, HttpStatus.OK);
@@ -105,10 +105,8 @@ class AirFreightController {
   /**
    * Method that updates an air freight record.
    * 
-   * @param newFlightRecord
-   *          new flight record
-   * @param airFreight
-   *          air freight
+   * @param newFlightRecord new flight record
+   * @param airFreight      air freight
    * @return ResponseEntity<?>
    */
   @PostMapping("/v1/flight/{airFreight}")
@@ -155,17 +153,13 @@ class AirFreightController {
   /**
    * Method that retrieves faFlightID.
    * 
-   * @param flight
-   *          flight
-   * @param date
-   *          flight date
-   * @param time
-   *          flight time
+   * @param flight flight
+   * @param date   flight date
+   * @param time   flight time
    * @return the faFlightID
-   * @throws IOException
-   *           IOException
+   * @throws IOException IOException
    */
-  public String retrieveFaFlightID(String flight, String date, String time) throws IOException {
+  public JsonNode retrieveFaFlightID(String flight, String date, String time) throws IOException {
     String flightInfoStatusURL = this.urlPrefix + "FlightInfoStatus?ident=" + flight;
     HttpGet request = new HttpGet(flightInfoStatusURL);
     request.setHeader(HttpHeaders.AUTHORIZATION, getAuthHeader());
@@ -183,8 +177,7 @@ class AirFreightController {
    * Method that prepares flight number to be used for making FlightAware API
    * call.
    * 
-   * @param record
-   *          Air freight record
+   * @param record Air freight record
    * @return flight number
    */
   public String prepareFlight(AirFreight record) {
@@ -211,36 +204,26 @@ class AirFreightController {
   /**
    * Method that formats date from YYYY-MM-DD to DD/MM/YYYY.
    * 
-   * @param ETD
-   *          ETD
+   * @param ETD ETD
    * @return the formatted date
    */
   private String formatDate(String ETD) {
     String[] parts = ETD.split(" ");
     String[] dateParts = parts[0].split("-");
     String formattedDate = "";
-    for (int i = dateParts.length - 1; i >= 0; i--) {
-      if (i != 0) {
-        formattedDate += dateParts[i] + "/";
-      } else {
-        formattedDate += dateParts[i];
-      }
-    }
+    formattedDate = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
     return formattedDate;
   }
 
   /**
    * Method that parses faFlightID from json.
    * 
-   * @param json
-   *          json as string
-   * @param date
-   *          date
+   * @param json json as string
+   * @param date date
    * @return faFlightID
-   * @throws IOException
-   *           IOException
+   * @throws IOException IOException
    */
-  private String parseFaFlightIDFromJson(String json, String date) throws IOException {
+  private JsonNode parseFaFlightIDFromJson(String json, String date) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     JsonNode rootNode = objectMapper.readTree(json);
     JsonNode flights = rootNode.get("FlightInfoStatusResult").get("flights");
@@ -251,7 +234,7 @@ class AirFreightController {
         JsonNode filedDepartureTimeNode = objNode.get("filed_departure_time");
         String filedDepartureDate = filedDepartureTimeNode.get("date").asText();
         if (date.equals(filedDepartureDate)) {
-          return faFlightID.asText();
+          return objNode;
         }
       }
     }
@@ -261,15 +244,12 @@ class AirFreightController {
   /**
    * Method that retrieves flight tracks for a flight
    * 
-   * @param faFlightID
-   *          faFlightID
+   * @param faFlightID faFlightID
    * @return List<FlightTrack>
-   * @throws IOException
-   *           IOException
+   * @throws IOException IOException
    */
   private List<FlightTrack> retrieveflightTracks(String faFlightID) throws IOException {
     String getFlightTrackURL = this.urlPrefix + "GetFlightTrack?ident=" + faFlightID;
-
     HttpGet request = new HttpGet(getFlightTrackURL);
 
     request.setHeader(HttpHeaders.AUTHORIZATION, getAuthHeader());
@@ -286,11 +266,9 @@ class AirFreightController {
   /**
    * Method that parses flight tracks from json.
    * 
-   * @param json
-   *          json as string
+   * @param json json as string
    * @return List<FlightTrack>
-   * @throws IOException
-   *           IOException
+   * @throws IOException IOException
    */
   private List<FlightTrack> parseFlightTracksFromJson(String json) throws IOException {
 
@@ -318,10 +296,10 @@ class AirFreightController {
 
   /**
    * Prepares error message
+   * 
    * @return
    */
   private ResponseEntity<?> prepareErrorMessage(String code, String message) {
-    return new ResponseEntity<>(new GenericMessage(code, message),
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(new GenericMessage(code, message), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

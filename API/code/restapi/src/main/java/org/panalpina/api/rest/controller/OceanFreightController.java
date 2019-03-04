@@ -245,13 +245,11 @@ class OceanFreightController {
 
     String voyageForecastsUrl = this.urlPrefix + "voyageforecast/" + this.voyageForecastsKey + "/" + "mmsi:" + mmsi
         + "/" + "protocol:" + this.protocolValue + "/" + "msgtype:" + this.msgtypeValue;
-
     uriList.add(voyageForecastsUrl);
 
     String vesselHistoricalTrackUrl = this.urlPrefix + "exportvesseltrack/" + this.vesselHistoricalTrackKey + "/"
         + "v:2/period:" + this.periodValue + "/" + "days:" + String.valueOf(numOfDays) + "/" + "mmsi:" + mmsi + "/"
         + "protocol:" + this.protocolValue;
-
     uriList.add(vesselHistoricalTrackUrl);
 
     return uriList;

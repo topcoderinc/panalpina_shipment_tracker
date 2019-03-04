@@ -22,4 +22,6 @@ import lombok.NoArgsConstructor;
 public class FlightShipmentResponse {
   private AirFreight airFreight;
   private List<FlightTrack> flightTracks;
+  private Integer progressPercentage;
+  private String schedule;
 }

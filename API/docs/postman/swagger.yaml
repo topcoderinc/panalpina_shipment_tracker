@@ -16,6 +16,43 @@ schemes:
 - "https"
 - "http"
 paths:
+  /shipment/{trackingNumber}:
+    get:
+      summary: "Get shipment type based on tracking number."
+      description: ""
+      operationId: "getFlight"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "trackingNumber"
+          in: "path"
+          description: "tracking shipment number."
+          required: true
+          type: "number"
+      responses:
+        200:
+          description: "Success response with shipment type details."
+          schema:
+            $ref: "#/definitions/ShipmentResponse"
+        404:
+          description: "404 Failure response for non existing shipment."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+        500:
+          description: "500 For internal server errors."
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "number"
+              message:
+                type: "string"
+      x-swagger-router-controller: "Shipment"
   /flight/{shipmentNumber}:
     get:
       summary: "Get flight shipment details."
@@ -171,6 +208,11 @@ paths:
                 type: "string"
       x-swagger-router-controller: "Shipment"
 definitions:
+  ShipmentResponse:
+    type: "object"
+    properties:
+      type:
+        type: "string"
   FlightShipmentResponse:
     type: "object"
     properties:

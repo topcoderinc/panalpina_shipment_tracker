@@ -26,8 +26,8 @@
   <div class="tracking-map">
     <div class="search-bar">
       <label>Reference <span class="ic ic-info"></span></label>
-      <input class="form-control" placeholder="Enter shipment number(s)" [value]="state.filters.shipmentNumber.join(', ')" (change)="updateShipmentFilter($event)" />
-      <div class="btn">TRACK</div>
+      <input class="form-control" #ref placeholder="Enter shipment number(s)" [value]="state.filters.shipmentNumber.join(', ')" (keyup.enter)="updateShipmentFilter(ref.value)" />
+      <div class="btn" (click)="updateShipmentFilter(ref.value)">TRACK</div>
     </div>
     <app-results-filter
       [class.active]="state.showFilters"
@@ -45,7 +45,7 @@
   </div>
 
   <!-- results list section -->
-  <section class="main-section">
+  <section class="main-section" >
     <header>
       <h5>Tracking result ({{state.results.length}})</h5>
       <a class="right-actions" href="javascript:;" (click)="state.showFilters = !state.showFilters">

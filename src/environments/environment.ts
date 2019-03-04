@@ -4,18 +4,13 @@
 
 export const environment = {
   production: false,
-
-  api: {
-    BASE_URL: '/assets/data',
-    FORMAT: '.json',
-  },
-
   gMap: {
-    apiKey: 'AIzaSyDfnTMBCEJffSRSNtLDpGC7RruQY69O5s4',
-    userLocation: {lat: 52.689329, lng: -0.875330},
-    center: {lat: 0, lng: 0},
+    apiKey: 'AIzaSyBOVh9qEzv3VlBVA8Hc_hJm_vBnYYL32QQ',
+    userLocation: { lat: 52.689329, lng: -0.875330 },
+    center: { lat: 0, lng: 0 },
     zoom: 2,
   },
+  apiBaseUrl: 'http://localhost:8080/v1'
 };
 
 /*
