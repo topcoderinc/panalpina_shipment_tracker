@@ -15,11 +15,11 @@
     <div class="progress-status" (click)="select(item)">
       <div class="title">{{item.shipmentNumber}}</div>
       <!-- status bar -->
-      <div class="progress-wrap {{item.schedule === 'on-schedule' ? 'success' : 'danger'}}">
+      <div class="progress-wrap {{item.schedule === 'delayed' ? 'danger' : 'success'}}">
         <div class="progress-bar">
-          <div class="progress" [style.width.%]="item.progress*100"></div>
+          <div class="progress" [style.width.%]="item.progress"></div>
         </div>
-        <span class="progr-detail">Departure to transit location</span>
+        <span class="progr-detail">{{item.status}}</span>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <div class="stats-cols">
         <div class="col sm-col">
           <span class="label">From</span>
-          <span class="value">{{item.from.port}}</span>
+          <span class="value">{{item?.from?.port}}</span>
         </div>
 
         <div class="col ic-col">
@@ -40,7 +40,7 @@
 
         <div class="col sm-col">
           <span class="label">To</span>
-          <span class="value">{{item.to.port}}</span>
+          <span class="value">{{item?.to?.port}}</span>
         </div>
 
         <div class="col md-col">

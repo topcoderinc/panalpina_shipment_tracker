@@ -60,16 +60,16 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   activeRoute = null;
   @Output() activeRouteChange = new EventEmitter<any>();
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-     // wait for maps sdk to load
+    // wait for maps sdk to load
     GMapsLoader.load()
-    .then(GMapsLoader.loadUtilityLib)
-    .then(this.initMap, (err) => {
-      console.log('Maps failed to load!', err);
-      return Promise.reject({});
-    });
+      .then(GMapsLoader.loadUtilityLib)
+      .then(this.initMap, (err) => {
+        console.log('Maps failed to load!', err);
+        return Promise.reject({});
+      });
   }
 
   /**
@@ -148,9 +148,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         color: item.schedule === 'delayed' ? colors.delayed : '#373c8c',
         nextLineColor: colors[item.schedule] || '#9496B4',
       };
-
-      this.drawRouteLines(item, style);
-      this.drawRouteMarkers(item, style);
+      if (item.shipmentType === 'air') {
+        new google.maps.Geocoder().geocode({
+          'address': `${item.to.port} Airport`
+        }, (results, status) => {
+          if (status === google.maps.GeocoderStatus.OK) {
+            const location = results[0].geometry.location;
+            item.packageGeoInfo.geoData.push({ lat: location.lat(), lng: location.lng(), currentLocation: false });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+          this.drawRouteLines(item, style);
+          this.drawRouteMarkers(item, style);
+        });
+      } else {
+        this.drawRouteLines(item, style);
+        this.drawRouteMarkers(item, style);
+      }
     });
   }
 
@@ -243,25 +257,27 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
       icon: point.currentLocation ? {
         url: currentLocationIcon,
-        size: {width: 24, height: 24},
-        scaledSize: {width: 24, height: 24},
-        anchor: {x: 12, y: 12},
+        size: { width: 24, height: 24 },
+        scaledSize: { width: 24, height: 24 },
+        anchor: { x: 12, y: 12 },
       } : {
-        url: icons[`${style.isDestination ? 'dest' : 'pin'}${style.delayed ? 'Delayed' : ''}`],
-        size: {width: 24, height: 24},
-        anchor: {x: 12, y: 12},
-      },
+          url: icons[`${style.isDestination ? 'dest' : 'pin'}${style.delayed ? 'Delayed' : ''}`],
+          size: { width: 24, height: 24 },
+          anchor: { x: 12, y: 12 },
+        },
 
       labelContent: (style.startingPoint && style.delayed || point.currentLocation) ? data.shipmentNumber : null,
       labelAnchor: new google.maps.Point(-18, 11),
       labelClass: 'marker-label',
     };
 
-    const label = new MarkerWithLabel({...markerData, icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 1,
-      strokeOpacity: 0,
-    }});
+    const label = new MarkerWithLabel({
+      ...markerData, icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 1,
+        strokeOpacity: 0,
+      }
+    });
 
     const marker = new google.maps.Marker(markerData);
 
@@ -301,9 +317,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       optimized: true,
       icon: {
         url: (item.shipmentType === 'ocean') ? '/assets/i/icons/ic-filter-ocean-gray.svg' : '/assets/i/icons/ic-filter-air-gray.svg',
-        size: {width: 24, height: 24},
-        scaledSize: {width: 24, height: 24},
-        anchor: {x: 12, y: 12}
+        size: { width: 24, height: 24 },
+        scaledSize: { width: 24, height: 24 },
+        anchor: { x: 12, y: 12 }
       }
     });
 
@@ -322,9 +338,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         item: item,
         icon: {
           url: '/assets/i/icons/ic-warning-red.svg',
-          size: {width: 18, height: 18},
-          scaledSize: {width: 18, height: 18},
-          anchor: {x: 9, y: 9}
+          size: { width: 18, height: 18 },
+          scaledSize: { width: 18, height: 18 },
+          anchor: { x: 9, y: 9 }
         }
       });
 
@@ -387,20 +403,21 @@ export class GoogleMapComponent implements OnInit, OnChanges {
       m.setOpacity(opacity);
 
       if (m.label) {
-        m.setOptions({labelClass: `marker-label ${opacity === 1 ? '' : 'inactive'}`});
+        m.setOptions({ labelClass: `marker-label ${opacity === 1 ? '' : 'inactive'}` });
       }
     });
 
     (routes || this.routes).forEach(r => {
       if (r.strokeOpacity > 0) {
-        return r.setOptions({strokeOpacity: opacity});
+        return r.setOptions({ strokeOpacity: opacity });
       }
 
       r.setOptions({
         icons: [{
           ...r.icons[0],
-          icon: {...r.icons[0].icon, strokeOpacity: opacity},
-        }]});
+          icon: { ...r.icons[0].icon, strokeOpacity: opacity },
+        }]
+      });
     });
   }
 }

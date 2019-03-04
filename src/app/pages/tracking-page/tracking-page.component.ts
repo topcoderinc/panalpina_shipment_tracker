@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
-
-import { ApiService } from '../../services/api.service';
+import { TrackingService } from 'src/app/services/tracking.service';
 
 @Component({
   selector: 'app-tracking-page',
@@ -37,7 +36,7 @@ export class TrackingPageComponent implements OnInit {
     return this.trackingNumbers.map(n => n.number).join(',');
   }
 
-  constructor(private api: ApiService) {}
+  constructor(private trackingSvc: TrackingService) {}
 
   ngOnInit() {
     const input = this.inputEl.nativeElement;
@@ -86,7 +85,7 @@ export class TrackingPageComponent implements OnInit {
       // if the number was added on "auto-detect", call the api to decide
       // which type this number should be
       this.trackingNumbers.push(item);
-      this.api.getReferenceType(item.number)
+      this.trackingSvc.getReferenceType(item.number)
         .subscribe(d => item.type = d);
     });
   }

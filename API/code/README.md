@@ -10,7 +10,7 @@ The developed source code uses maven for dependency management and build executi
 
 To execute the code:
 
-      $cd API/code
+      $cd submission/code
       
       $mvn clean install
 

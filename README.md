@@ -1,9 +1,4 @@
-# Panalpina Shipping App Design-to-Prototype
-
-### HEROKU URL & DEMO
-https://pan-app-tc.herokuapp.com/
-To test out the application, please use these tracking numbers:
-PNH009736, LKHBA-004459, TKY001234, BRRIO-006783, 157-48197836, 220-12345678
+# Panalpina Shipping App
 
 ## Prerequisite
 > [node >= 9.11 and npm >= 5.6](https://nodejs.org/en/download/)
@@ -13,7 +8,6 @@ PNH009736, LKHBA-004459, TKY001234, BRRIO-006783, 157-48197836, 220-12345678
 
 Install all dependencies by running `npm install` in project's root folder.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
 
 ## Development server
 
@@ -96,8 +90,3 @@ The available configurations are:
 
 ## 3rd Party libraries
 > [d3js](https://d3js.org/)
-
-
-### Mock data
-All data can be found in `.json` files under `/assets/data/` folder.
-The JSON structure is normalized, as well as the properties are (no white space, just camelCase properties).

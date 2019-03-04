@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { ApiService } from '../../services/api.service';
 import { ResultsTableComponent } from '../../components/results-table/results-table.component';
 import { GoogleMapComponent } from '../../components/google-map/google-map.component';
+import * as _ from 'lodash';
+import { TrackingService } from 'src/app/services/tracking.service';
+import { forkJoin, merge, of } from 'rxjs';
+import { mergeMap, catchError } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 // need to normalize strings in order to compare them
 // will remove any non-word, non-digit character & lowercase the string
@@ -29,10 +33,13 @@ export class ResultsPageComponent implements OnInit {
     sort: 'eta',
   };
 
+  tempData = null;
+
   public gMap: GoogleMapComponent;
   public resultsTable: ResultsTableComponent;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(private trackingSvc: TrackingService,
+    private route: ActivatedRoute, private location: Location) { }
 
   /**
    * get route params & fetch results from API
@@ -42,48 +49,83 @@ export class ResultsPageComponent implements OnInit {
       if (!params.q) {
         return;
       }
-
       const values = params.q.split(',').map(s => s.trim()).filter(s => s);
-      this.updateFilters({shipmentNumber: values});
+      this.updateFilters({ shipmentNumber: values }, true);
     });
   }
 
   /**
    * Update the tracking numbers based on what user tiped in the search input
+   * @param value the value
    */
-  updateShipmentFilter($event) {
+  updateShipmentFilter(value) {
     this.updateFilters({
-      shipmentNumber: $event.target.value.split(',').map(s => s.trim()).filter(s => s),
-    });
+      shipmentNumber: value.split(',').map(s => s.trim()).filter(s => s)
+    }, true);
+    this.location.go(`/results?q=${value.split(',').map(s => s.trim()).join(',')}`);
   }
 
   /**
    * Remove the specified item from the results table
+   * @param item the item
    */
   removeItem(item) {
     const shipmentNumber = normalize(item.shipmentNumber);
-    const filters = this.state.filters.shipmentNumber || [];
-
-    this.updateFilters({
-      shipmentNumber: filters.filter(s => normalize(s) !== shipmentNumber),
-    });
+    this.state.results = this.state.results.filter(x => normalize(x.shipmentNumber) !== shipmentNumber);
+    this.tempData = this.state.results;
   }
 
   /**
    * Apply result filter & re-fetch the results from API
+   * @param filters the filter
+   * @param isInit if init or not
    */
-  updateFilters(filters) {
-    this.state.filters = {...this.state.filters, ...filters};
-    this.fetchShipments();
+  updateFilters(filters, isInit = false) {
+    this.state.filters = { ...this.state.filters, ...filters };
+    if (isInit) {
+      this.fetchShipments();
+    } else {
+      this.trackingSvc.filterResults(this.tempData, this.state.filters, this.state.sort).subscribe(res => {
+        this.state.results = res;
+      });
+    }
   }
 
+  /**
+   * updates the sort
+   * @param sort the sort
+   */
   updateSort(sort) {
     this.state.sort = sort;
-    this.fetchShipments();
+    this.trackingSvc.filterResults(this.tempData, this.state.filters, this.state.sort).subscribe(res => {
+      this.state.results = res;
+    });
   }
 
+  /**
+   * fetch shipments
+   */
   fetchShipments() {
-    this.api.getTrackingResults(this.state.filters, this.state.sort)
-      .subscribe(results => this.state.results = results);
+    const observables = [];
+    _.each(this.state.filters.shipmentNumber, (shipmentNumber) => {
+      // catch error and return null so that some of them can be run well
+      observables.push(this.trackingSvc.getShipmentType(shipmentNumber).pipe(mergeMap(res => {
+        // check the shipment type
+        if (res.type === 'air') {
+          return this.trackingSvc.getFlightDetails(shipmentNumber).pipe(catchError(error => of(null)));
+        } else if (res.type === 'ocean') {
+          return this.trackingSvc.getFreightDetails(shipmentNumber).pipe(catchError(error => of(null)));
+        }
+      })).pipe(catchError(error => of(null))));
+    });
+    forkJoin(observables).subscribe(results => {
+      this.trackingSvc.filterResults(_.filter(results, i => i), this.state.filters, this.state.sort).subscribe(res => {
+        this.state.results = res;
+        this.tempData = this.state.results;
+      });
+    }, err => {
+      this.state.results = [];
+      this.tempData = [];
+    });
   }
 }
