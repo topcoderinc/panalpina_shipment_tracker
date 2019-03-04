@@ -10,7 +10,7 @@ export const environment = {
     center: { lat: 0, lng: 0 },
     zoom: 2,
   },
-  apiBaseUrl: 'http://localhost:8080/v1'
+  apiBaseUrl: 'http://ec2-3-16-49-18.us-east-2.compute.amazonaws.com:8080/v1'
 };
 
 /*
