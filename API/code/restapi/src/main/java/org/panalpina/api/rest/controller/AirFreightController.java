@@ -223,23 +223,27 @@ class AirFreightController {
    * @return faFlightID
    * @throws IOException IOException
    */
-  private JsonNode parseFaFlightIDFromJson(String json, String date) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    JsonNode rootNode = objectMapper.readTree(json);
-    JsonNode flights = rootNode.get("FlightInfoStatusResult").get("flights");
+	private JsonNode parseFaFlightIDFromJson(String json, String date) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode rootNode = objectMapper.readTree(json);
+		JsonNode flightInfoStatus = rootNode.get("FlightInfoStatusResult");
+		if (flightInfoStatus == null) {
+			return null;
+		}
+		JsonNode flights = flightInfoStatus.get("flights");
 
-    if (flights.isArray()) {
-      for (final JsonNode objNode : flights) {
-        JsonNode faFlightID = objNode.get("faFlightID");
-        JsonNode filedDepartureTimeNode = objNode.get("filed_departure_time");
-        String filedDepartureDate = filedDepartureTimeNode.get("date").asText();
-        if (date.equals(filedDepartureDate)) {
-          return objNode;
-        }
-      }
-    }
-    return null;
-  }
+		if (flights != null && flights.isArray()) {
+			for (final JsonNode objNode : flights) {
+				JsonNode faFlightID = objNode.get("faFlightID");
+				JsonNode filedDepartureTimeNode = objNode.get("filed_departure_time");
+				String filedDepartureDate = filedDepartureTimeNode.get("date").asText();
+				if (date.equals(filedDepartureDate)) {
+					return objNode;
+				}
+			}
+		}
+		return null;
+	}
 
   /**
    * Method that retrieves flight tracks for a flight
