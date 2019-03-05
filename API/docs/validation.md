@@ -7,7 +7,8 @@ The fix is only for backend the verification document explains only aboout how t
 
 Skip this test if already done.
 
-git am > 0001-commit-for-BugFix-1-challenge.patch
+git am < 0001-commit-for-BugFix-1-challenge.patch
+git am < 0002-fixed-review-comments.patch
 
 #Setup backend:
 
