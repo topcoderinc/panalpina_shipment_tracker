@@ -23,6 +23,8 @@ import org.panalpina.api.rest.model.FlightShipmentResponse;
 import org.panalpina.api.rest.model.FlightTrack;
 import org.panalpina.api.rest.model.GenericMessage;
 import org.panalpina.api.rest.repository.AirFreightRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +37,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Air Freight Controller.
  * 
@@ -45,6 +45,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 class AirFreightController {
+	
+	/**
+	 * Logger
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(AirFreightController.class);
+
   /* FlightAware API v3 user name */
   @Value("${fxml3.username}")
   private String username;
@@ -223,23 +229,32 @@ class AirFreightController {
    * @return faFlightID
    * @throws IOException IOException
    */
-  private JsonNode parseFaFlightIDFromJson(String json, String date) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    JsonNode rootNode = objectMapper.readTree(json);
-    JsonNode flights = rootNode.get("FlightInfoStatusResult").get("flights");
+	private JsonNode parseFaFlightIDFromJson(String json, String date) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode rootNode = objectMapper.readTree(json);
+		JsonNode flightInfoStatus = rootNode.get("FlightInfoStatusResult");
+		if (flightInfoStatus == null) {
+			LOGGER.debug("flight Info status is null");
+			return null;
+		}
+		JsonNode flights = flightInfoStatus.get("flights");
 
-    if (flights.isArray()) {
-      for (final JsonNode objNode : flights) {
-        JsonNode faFlightID = objNode.get("faFlightID");
-        JsonNode filedDepartureTimeNode = objNode.get("filed_departure_time");
-        String filedDepartureDate = filedDepartureTimeNode.get("date").asText();
-        if (date.equals(filedDepartureDate)) {
-          return objNode;
-        }
-      }
-    }
-    return null;
-  }
+		if (flights == null) {
+			LOGGER.debug("flights is null or empty");
+		}
+
+		if (flights != null && flights.isArray()) {
+			for (final JsonNode objNode : flights) {
+				JsonNode faFlightID = objNode.get("faFlightID");
+				JsonNode filedDepartureTimeNode = objNode.get("filed_departure_time");
+				String filedDepartureDate = filedDepartureTimeNode.get("date").asText();
+				if (date.equals(filedDepartureDate)) {
+					return objNode;
+				}
+			}
+		}
+		return null;
+	}
 
   /**
    * Method that retrieves flight tracks for a flight

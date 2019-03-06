@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "83b6c426-6768-4287-ba5b-d7f7fe020d4f",
+		"name": "F2F-BugFix of get flight status latest data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get flight details by shipment number (200)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/flight/PNH015420",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"flight",
+						"PNH015420"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
