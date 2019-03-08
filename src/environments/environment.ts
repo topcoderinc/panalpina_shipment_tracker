@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   gMap: {
-    apiKey: 'AIzaSyBOVh9qEzv3VlBVA8Hc_hJm_vBnYYL32QQ',
+    apiKey: 'AIzaSyAcsbS0cn7nN-3UqhtiHjv6MxOulersOpM',
     userLocation: { lat: 52.689329, lng: -0.875330 },
     center: { lat: 0, lng: 0 },
     zoom: 2,
