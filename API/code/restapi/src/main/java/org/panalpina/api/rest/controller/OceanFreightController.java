@@ -334,8 +334,8 @@ class OceanFreightController {
     for (String entry : positions) {
       String[] coordinates = entry.trim().split(" ");
       GeoCoordinates geoEntry = new GeoCoordinates();
-      geoEntry.setLat(coordinates[0]);
-      geoEntry.setLon(coordinates[1]);
+      geoEntry.setLat(coordinates[1]);
+      geoEntry.setLon(coordinates[0]);
       geoRoute.add(geoEntry);
     }
     return geoRoute;

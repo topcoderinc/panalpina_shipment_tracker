@@ -25,7 +25,7 @@
         <div class="no">{{item.shipmentNumber}}</div>
         <div class="status {{item.schedule}}">{{item.schedule === 'on-schedule' ? 'On Schedule' : 'Delayed'}}</div>
       </div>
-      <div class="flex-wrap">
+      <div class="flex-wrap {{item.shipmentType}}">
         <div class="from">
           <div>From</div>
           <div class="value">{{item.from?.port}}</div>
@@ -47,7 +47,7 @@
       </div>
       <div class="flex-wrap dates">
         <div>
-          Flight
+          {{item.shipmentType==='ocean' ? 'Vessel name & Voyage' : 'Flight'}}
           <div class="value">{{item.flight}}</div>
         </div>
         <div>

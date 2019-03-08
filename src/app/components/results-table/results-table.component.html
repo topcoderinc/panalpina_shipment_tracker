@@ -50,17 +50,17 @@
 
         <div class="col lg-col">
           <span class="label">Last Update</span>
-          <span class="value">{{item.lastUpdate|date:'MM/dd/y HH:mm'}}</span>
+          <span class="value">{{item.lastUpdate|date:'y-MM-dd'}}</span>
         </div>
 
         <div class="col lg-col">
           <span class="label">ETD</span>
-          <span class="value">{{item.etd|date:'MM/dd/y HH:mm'}}</span>
+          <span class="value">{{item.etd|date:'y-MM-dd'}}</span>
         </div>
 
         <div class="col lg-col">
           <span class="label">ETA</span>
-          <span class="value">{{item.eta|date:'MM/dd/y HH:mm'}}</span>
+          <span class="value">{{item.eta|date:'y-MM-dd'}}</span>
         </div>
       </div>
 
@@ -83,7 +83,7 @@
           </div>
 
           <div class="col lg-col">
-            <span class="label">Flight</span>
+            <span class="label">{{item.shipmentType==='ocean' ? 'Vessel name & Voyage' : 'Flight'}}</span>
             <span class="value">{{item.flight}}</span>
           </div>
 

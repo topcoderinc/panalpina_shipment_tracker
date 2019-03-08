@@ -168,10 +168,10 @@ export class TrackingService {
         carrier: data.oceanFreight.shippingLine,
         shipmentNumber: data.oceanFreight.paintainerHBL,
         from: {
-          port: data.oceanFreight.portOfDischarge
+          port: data.oceanFreight.portOfLoading
         },
         to: {
-          port: data.oceanFreight.portOfLoading
+          port: data.oceanFreight.placeOfDeliveryCode
         },
         etd: data.oceanFreight.etd,
         eta: data.oceanFreight.eta,
