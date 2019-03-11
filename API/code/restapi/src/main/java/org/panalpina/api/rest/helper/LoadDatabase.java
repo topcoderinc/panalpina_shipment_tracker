@@ -90,12 +90,12 @@ class LoadDatabase {
         .addColumn("Voyage Nbr", CsvSchema.ColumnType.STRING).addColumn("Vessel name", CsvSchema.ColumnType.STRING)
         .addColumn("Place of Receipt (code)", CsvSchema.ColumnType.STRING)
         .addColumn("Port of Loading (code)", CsvSchema.ColumnType.STRING)
-        // .addColumn("Port of Discharge (code)", CsvSchema.ColumnType.STRING)
+        .addColumn("Port of Discharge (code)", CsvSchema.ColumnType.STRING)
         .addColumn("Place of Delivery (code)", CsvSchema.ColumnType.STRING)
         .addColumn("Gross Weight (total)", CsvSchema.ColumnType.STRING)
         .addColumn("Pieces (total)", CsvSchema.ColumnType.STRING)
         .addColumn("Volume (total)", CsvSchema.ColumnType.STRING)
-        // .addColumn("Customer Reference (FOS)", CsvSchema.ColumnType.STRING)
+        .addColumn("Customer Reference (FOS)", CsvSchema.ColumnType.STRING)
         .setColumnSeparator(csvColumnsSeparator).build()
         .withHeader();
 
