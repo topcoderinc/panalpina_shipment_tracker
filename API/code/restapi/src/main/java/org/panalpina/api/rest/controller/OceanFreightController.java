@@ -29,7 +29,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -75,6 +76,8 @@ class OceanFreightController {
   /* Ocean Freight Repository */
   private final OceanFreightRepository oceanFreightRepository;
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(OceanFreightController.class);
+
   /* One argument constructor */
   OceanFreightController(OceanFreightRepository oceanFreightRepository) {
     this.oceanFreightRepository = oceanFreightRepository;
@@ -94,6 +97,8 @@ class OceanFreightController {
 
     OceanFreight record = oceanFreightRepository.findByPaintainerHBL(paintainer);
 
+    LOGGER.info("stored record---=>"+record);
+
     // If there is an existing entry in database, then make marine traffic API calls
     if (record != null) {
       // Simultaneous execution of multiple GET requests
@@ -105,6 +110,7 @@ class OceanFreightController {
       long numOfDays = calculateDays(record.getEtd());
       // Prepare marine traffic API urls
       urisToGet = prepareURIs(mmsi, numOfDays);
+      LOGGER.info("numbers of URI to be called--->"+urisToGet.size());
       // Fetch the urls
       execution.fetch(urisToGet);
 
@@ -115,6 +121,9 @@ class OceanFreightController {
       if (isErrorMessageInReturnedJson(json)) {
         return prepareErrorMessage(json);
       }
+
+      LOGGER.info("Response received -->",logResponseAsJson(json));
+
       VesselCurrentPosition currentPosition = parseJsonForCurrentPosition(json);
 
       // Get the result for vessel voyage and check for an error
@@ -141,6 +150,14 @@ class OceanFreightController {
     }
     return new ResponseEntity<>(new GenericMessage("404", AppConstant.NO_RECORD_FOUND_MSG + paintainer),
         HttpStatus.NOT_FOUND);
+  }
+
+  private String logResponseAsJson(String jsonString) throws IOException {
+	  ObjectMapper mapper = new ObjectMapper();
+	  Object jsonObject = mapper.readValue(jsonString, Object.class);
+	  String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+	  return prettyJson;
+
   }
 
   /**
@@ -334,8 +351,11 @@ class OceanFreightController {
     for (String entry : positions) {
       String[] coordinates = entry.trim().split(" ");
       GeoCoordinates geoEntry = new GeoCoordinates();
-      geoEntry.setLat(coordinates[1]);
-      geoEntry.setLon(coordinates[0]);
+      LOGGER.info("coordinates values received-->",entry);
+      if(coordinates !=null && coordinates.length ==2) {
+    	  geoEntry.setLat(coordinates[1]);
+          geoEntry.setLon(coordinates[0]);  
+      }
       geoRoute.add(geoEntry);
     }
     return geoRoute;
