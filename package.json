@@ -27,7 +27,7 @@
     "moment": "^2.24.0",
     "normalize.css": "^8.0.0",
     "rxjs": "~6.2.0",
-    "rxjs-compat": "^6.0.0",
+    "rxjs-compat": "^6.6.7",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
